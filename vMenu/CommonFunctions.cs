@@ -528,10 +528,11 @@ namespace vMenuClient
                 bool successFull = await LoadModel((uint)hash);
                 if (!successFull || !IsModelAPed((uint)hash))
                 {
+                    // Ped model doesnt exist
                     Notify.Error(CommonErrors.InvalidModel);
                     return;
                 }
-
+                // change model
                 await new Player(PlayerId()).ChangeModel(new Model(hash));
             }
             // Result was invalid.
