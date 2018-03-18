@@ -516,6 +516,32 @@ namespace vMenuClient
         }
         #endregion
 
+        #region Main Spawn Ped Function
+        public async void SpawnPed(string PedName)
+        {
+            // Get the result.
+            string result = await GetUserInput("Enter Ped Model Name", "");
+            // If the result was not invalid.
+            if (result != "NULL")
+            {
+                int hash = GetHashKey(result);
+                bool successFull = await LoadModel((uint)hash);
+                if (!successFull || !IsModelAPed((uint)hash))
+                {
+                    Notify.Error(CommonErrors.InvalidModel);
+                    return;
+                }
+
+                await new Player(PlayerId()).ChangeModel(new Model(hash));
+            }
+            // Result was invalid.
+            else
+            {
+                Notify.Error(CommonErrors.InvalidInput);
+            }
+        }
+        #endregion
+        
         #region Main Spawn Vehicle Function
         /// <summary>
         /// Spawn a vehicle by providing the vehicle hash.
