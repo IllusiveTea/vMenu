@@ -75,12 +75,22 @@ namespace vMenuClient
             UIMenuItem deleteSavedPed = new UIMenuItem("Delete Saved Ped", "Delete one of your saved peds.");
             deleteSavedPed.SetRightLabel("→→→");
             deleteSavedPed.SetLeftBadge(UIMenuItem.BadgeStyle.Alert);
+            UIMenuItem spawnPedByName = new UIMenuItem("Spawn Ped By Model Name", "Enter the name of a ped to spawn.");
 
             // Add items to the mneu.
             menu.AddItem(pedCustomization);
             menu.AddItem(savePed);
             menu.AddItem(spawnSavedPed);
             menu.AddItem(deleteSavedPed);
+            menu.AddItem(spawnPedByName);
+
+            menu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == spawnPedByName)
+                {
+                    cf.SpawnPed("custom");
+                }
+            };
 
             // Bind items to the submenus.
             if (cf.IsAllowed(Permission.PACustomize))
